@@ -36,14 +36,14 @@ TEST(Collatz, read) {
     ASSERT_EQ(10, p.second);}
 
 // Tests a relatively large number
-TEST(Collatz, read) {
+TEST(Collatz, read1) {
     string s("1234567891 1\n");
     const pair<int, int> p = collatz_read(s);
     ASSERT_EQ(1234567891, p.first);
     ASSERT_EQ(1, p.second);}
 
 // Tests a pair that has a larger value as the first value
-TEST(Collatz, read) {
+TEST(Collatz, read2) {
     string s("14 2\n");
     const pair<int, int> p = collatz_read(s);
     ASSERT_EQ(14, p.first);
@@ -89,7 +89,7 @@ TEST(Collatz, print) {
     ASSERT_EQ("1 10 20\n", w.str());}
 
 // Test print for reversed value handling
-TEST(Collatz, print) {
+TEST(Collatz, print1) {
     ostringstream w;
     collatz_print(w, 10, 1, 20);
     ASSERT_EQ("10 1 20\n", w.str());}
@@ -106,7 +106,7 @@ TEST(Collatz, solve) {
     ASSERT_EQ("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n", w.str());}
 
 // Test reversed values
-TEST(Collatz, solve) {
+TEST(Collatz, solve1) {
     istringstream r("10 1\n200 100\n210 201\n1000 900\n");
     ostringstream w;
     collatz_solve(r, w);
