@@ -22,6 +22,8 @@ using namespace std;
 // collatz_read
 // ------------
 
+int cache[1000000];
+
 pair<int, int> collatz_read (const string& s) {
     istringstream sin(s);
     int i;
@@ -47,13 +49,26 @@ int collatz_eval (int i, int j) {
     for(int x = i; x <= j; x++){
         int tempX = x;
         int count = 1;
-        while(tempX != 1){
+
+        if(cache[x] != 0)
+            return cache[x];
+
+        while(tempX > 1){
+            if(tempX < 1000000){
+                if(cache[tempX] != 0){
+                    count += cache[tempX];
+                    break;
+                }
+            }
+            
             if(tempX % 2 == 0){
                 tempX /= 2;
             }else{
-                tempX = (tempX * 3) + 1;
+                tempX = tempX + (tempX >> 1) + 1;
+                count++;
             }
             count++;
+            
         }
 
         if(count > maxCount)
