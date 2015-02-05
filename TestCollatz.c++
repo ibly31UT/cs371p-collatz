@@ -41,19 +41,19 @@ TEST(Collatz, read) {
 
 TEST(Collatz, eval_1) {
     const int v = collatz_eval(1, 10);
-    ASSERT_EQ(1, v);}
+    ASSERT_EQ(20, v);}
 
 TEST(Collatz, eval_2) {
     const int v = collatz_eval(100, 200);
-    ASSERT_EQ(1, v);}
+    ASSERT_EQ(125, v);}
 
 TEST(Collatz, eval_3) {
     const int v = collatz_eval(201, 210);
-    ASSERT_EQ(1, v);}
+    ASSERT_EQ(89, v);}
 
 TEST(Collatz, eval_4) {
     const int v = collatz_eval(900, 1000);
-    ASSERT_EQ(1, v);}
+    ASSERT_EQ(174, v);}
 
 // -----
 // print
