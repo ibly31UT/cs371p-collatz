@@ -22,8 +22,6 @@ using namespace std;
 // collatz_read
 // ------------
 
-int cache[1000000];
-
 pair<int, int> collatz_read (const string& s) {
     istringstream sin(s);
     int i;
@@ -35,6 +33,10 @@ pair<int, int> collatz_read (const string& s) {
 // collatz_eval
 // ------------
 
+// Cache size of 1 million, holds all values that will be given in test cases on SPOJ
+
+int cache[1000000];
+
 int collatz_eval (int i, int j) {
     assert(i > 0);
     assert(j > 0);
@@ -43,6 +45,11 @@ int collatz_eval (int i, int j) {
         int temp = i;
         i = j;
         j = temp;
+    }
+
+    // optimization, skip all prior to j/2
+    if(i < j / 2){
+        i = j / 2;
     }
 
     int maxCount = 0;
@@ -63,9 +70,12 @@ int collatz_eval (int i, int j) {
             
             if(tempX % 2 == 0){
                 tempX /= 2;
-            }else{
+            }else if(tempX * 3 + 1 > 0){ // if it doesnt overflow integer, perform step skipping optimization
                 tempX = tempX + (tempX >> 1) + 1;
                 count++;
+            }else{ // otherwise, increment count and break out of loop because overflow occured.
+                count++;
+                break;
             }
             count++;
             
