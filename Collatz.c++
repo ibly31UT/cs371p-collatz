@@ -41,7 +41,7 @@ int collatz_eval (int i, int j) {
     assert(i > 0);
     assert(j > 0);
 
-    if(i > j){
+    if(i > j){ // if numbers are in descending order, reverse them
         int temp = i;
         i = j;
         j = temp;
@@ -55,22 +55,22 @@ int collatz_eval (int i, int j) {
     int maxCount = 0;
     for(int x = i; x <= j; x++){
         int tempX = x;
-        int count = 1;
+        int count = 1; // initialize at 1 so that we guarantee a minimum count of 1 to replace the maxCount of 0
 
-        if(cache[x] != 0)
+        if(cache[x] != 0) // if we've calculated it already, return
             return cache[x];
 
         while(tempX > 1){
             if(tempX < 1000000){
-                if(cache[tempX] != 0){
+                if(cache[tempX] != 0){ // cache hit
                     count += cache[tempX];
                     break;
                 }
             }
             
-            if(tempX % 2 == 0){
+            if(tempX % 2 == 0){ // if even
                 tempX /= 2;
-            }else if(tempX * 3 + 1 > 0){ // if it doesnt overflow integer, perform step skipping optimization
+            }else if(tempX * 3 + 1 > 0){ // if odd and it doesnt overflow integer, perform step skipping optimization
                 tempX = tempX + (tempX >> 1) + 1;
                 count++;
             }else{ // otherwise, increment count and break out of loop because overflow occured.
@@ -81,7 +81,7 @@ int collatz_eval (int i, int j) {
             
         }
 
-        if(count > maxCount)
+        if(count > maxCount) // replace maxCount if necessary
             maxCount = count;
     }
 
